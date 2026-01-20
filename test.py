@@ -68,7 +68,13 @@ def save_animal(name, confidence):
 # --- INTERFACE ---
 st.title("🦁 Google Pokédex (Filtre Animal)")
 
-img_file_buffer = st.camera_input("📸 Viser l'animal")
+# Source : caméra ou fichier
+mode = st.radio("Source", ["📸 Caméra", "📁 Fichier"], horizontal=True)
+img_file_buffer = (
+    st.camera_input("Viser l'animal")
+    if mode == "📸 Caméra"
+    else st.file_uploader("Choisir une photo", type=["png", "jpg", "jpeg"])
+)
 
 if img_file_buffer is not None:
     image = Image.open(img_file_buffer)
